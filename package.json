@@ -1,0 +1,27 @@
+{
+  "name": "authentication-client",
+  "version": "1.0.0",
+  "description": "Matching client for authentication-server.",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint src",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neufund/authentication-client.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Neufund/authentication-client/issues"
+  },
+  "homepage": "https://github.com/Neufund/authentication-client#readme",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.1.1",
+    "mocha": "^3.2.0"
+  }
+}
