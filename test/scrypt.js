@@ -1,21 +1,20 @@
-import 'babel-polyfill'
-import assert from 'assert'
-import Authenticator from '../src/index.js'
+import 'babel-polyfill';
+import assert from 'assert';
+import Authenticator from '../src/index';
 
-const hex = str => {
-  let buf = Buffer.from(str, 'hex')
-  let r = new Uint8Array(buf.length)
-  for (let i = 0; i < buf.length; i++) {
-    r[i] = buf[i]
+const hex = (str) => {
+  const buf = Buffer.from(str, 'hex');
+  const r = new Uint8Array(buf.length);
+  for (let i = 0; i < buf.length; i += 1) {
+    r[i] = buf[i];
   }
-  return r
-}
+  return r;
+};
 
 describe('Scrypt', async () => {
   it('should match the test vectors', async () => {
-    let auth = new Authenticator('/nop')
-    let key = await auth.scrypt('mypassword', 'saltysalt')
-    const result = hex('5012b74fca8ec8a4a0a62ffdeeee959d')
-    assert.deepEqual(key, result)
-  })
-})
+    const key = await Authenticator.scrypt('mypassword', 'saltysalt');
+    const result = hex('5012b74fca8ec8a4a0a62ffdeeee959d');
+    assert.deepEqual(key, result);
+  });
+});

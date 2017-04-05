@@ -1,13 +1,7 @@
 {
-    "extends": "standard",
-    "plugins": [
-        "standard",
-        "promise"
-    ],
-    "rules": {
-      "key-spacing"          : 0,
-      "jsx-quotes"           : [2, "prefer-single"],
-      "max-len"              : [2, 80, 2],
-      "object-curly-spacing" : [2, "always"]
-    }
+  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "mocha": true
+  }
 }
