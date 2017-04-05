@@ -1,6 +1,6 @@
 import 'babel-polyfill'
-import Authenticator from '../src/index.js'
 import assert from 'assert'
+import Authenticator from '../src/index.js'
 
 const hex = str => {
   let buf = Buffer.from(str, 'hex')
