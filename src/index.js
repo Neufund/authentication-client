@@ -60,8 +60,9 @@ class Authenticator {
   async login(email, passphrase, timeBasedOneTimeToken) {
     const { encryptedPart, srpSalt, kdfSalt, serverPublicKey } =
       await (await this._request('/api/login-data', { email })).json();
+    const key = await Authenticator._scrypt(passphrase, kdfSalt);
     const { clientProof, clientPublicKey } =
-      await this._srpLogin(email, passphrase, srpSalt, kdfSalt, serverPublicKey);
+      await this._srpLogin(email, key, srpSalt, serverPublicKey);
     const { token, serverProof } = await (await this._request('/api/login', {
       clientProof,
       clientPublicKey,
@@ -119,15 +120,13 @@ class Authenticator {
   /**
    * Generates client proof and public key
    * @param {String} email
-   * @param {String} passphrase
+   * @param {Uint8Array} key - derived key
    * @param {String} srpSalt
-   * @param {String} kdfSalt
    * @param {String} serverPublicKey
    * @return {Promise.<{clientPublicKey, clientProof}>}
    * @private
    */
-  async _srpLogin(email, passphrase, srpSalt, kdfSalt, serverPublicKey) {
-    const key = await Authenticator._scrypt(passphrase, kdfSalt);
+  async _srpLogin(email, key, srpSalt, serverPublicKey) {
     this.srp = new jsrp.client();
     await new Promise(resolve => this.srp.init({
       username: email,
