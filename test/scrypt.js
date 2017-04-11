@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import 'babel-polyfill';
 import assert from 'assert';
 import Authenticator from '../src/index';
@@ -13,7 +14,7 @@ const hex = (str) => {
 
 describe('Scrypt', async () => {
   it('should match the test vectors', async () => {
-    const key = await Authenticator.scrypt('mypassword', 'saltysalt');
+    const key = await Authenticator._scrypt('mypassword', 'saltysalt');
     const result = hex('5012b74fca8ec8a4a0a62ffdeeee959d');
     assert.deepEqual(key, result);
   });
