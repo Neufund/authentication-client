@@ -1,7 +1,7 @@
 {
   "name": "authentication-client",
   "version": "1.0.0",
-  "description": "Matching client for authentication-server.",
+  "description": "Matching client for authentication-server",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint src",
