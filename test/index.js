@@ -33,7 +33,13 @@ describe('Authenticator', () => {
     });
   });
   describe('#_generateSalt', () => {
-
+    it('generates random salt', async () => {
+      const salt1 = new Authenticator._generateSalt();
+      const salt2 = new Authenticator._generateSalt();
+      expect(salt1).to.have.lengthOf(32);
+      expect(salt2).to.have.lengthOf(32);
+      expect(salt1).to.not.equal(salt2);
+    });
   });
   describe('#login', () => {
 
