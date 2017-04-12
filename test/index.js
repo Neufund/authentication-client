@@ -4,6 +4,7 @@ import 'babel-polyfill';
 import chai from 'chai';
 import dirtyChai from 'dirty-chai';
 import faker from 'faker';
+import sinon from 'sinon';
 import { server } from 'jsrp';
 import Authenticator from '../src/index';
 
@@ -97,6 +98,26 @@ describe('Authenticator', () => {
   });
 
   describe('#register', () => {
-
+    it('submits correct signup request', async () => {
+      const secret = 'totpSecret';
+      const email = faker.internet.email();
+      const password = faker.internet.password();
+      const authenticator = new Authenticator(API_URL);
+      const requestStub = sinon.stub();
+      authenticator._request = requestStub;
+      requestStub.resolves({ text: () => (new Promise(resolve => resolve(secret))) });
+      const totpSecret = await authenticator.register(email, password, 'captcha');
+      expect(totpSecret).to.be.equal(secret);
+      expect(requestStub.callCount).to.be.equal(1);
+      const args = requestStub.firstCall.args;
+      expect(args[0]).to.be.equal('/api/signup');
+      const payload = args[1];
+      expect(payload).to.not.have.property('password');
+      expect(payload).to.have.property('email', email);
+      expect(payload).to.have.property('captcha', 'captcha');
+      expect(payload).to.have.property('kdfSalt');
+      expect(payload).to.have.property('srpSalt');
+      expect(payload).to.have.property('srpVerifier');
+    });
   });
 });
