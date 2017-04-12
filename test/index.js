@@ -22,11 +22,12 @@ async function register(email, key) {
 }
 
 describe('Authenticator', () => {
+  const email = faker.internet.email();
+  const password = faker.internet.password();
+  const kdfSalt = Authenticator._generateSalt();
+
   describe('#_srpCheckServer', () => {
     it('checks the server proof', async () => {
-      const email = faker.internet.email();
-      const password = faker.internet.password();
-      const kdfSalt = Authenticator._generateSalt();
       const key = await Authenticator._scrypt(password, kdfSalt);
       const { authenticator, srpServer, salt } = await register(email, key);
       const { clientPublicKey, clientProof } =
@@ -40,9 +41,6 @@ describe('Authenticator', () => {
 
   describe('#_srpLogin', () => {
     it('should return correct clientPublicKey and clientProof', async () => {
-      const email = faker.internet.email();
-      const password = faker.internet.password();
-      const kdfSalt = Authenticator._generateSalt();
       const key = await Authenticator._scrypt(password, kdfSalt);
       const { authenticator, srpServer, salt } = await register(email, key);
       const { clientPublicKey, clientProof } =
@@ -54,11 +52,8 @@ describe('Authenticator', () => {
 
   describe('#_srpRegister', async () => {
     it('should return salt and verifier', async () => {
-      const authenticator = new Authenticator(API_URL);
-      const email = faker.internet.email();
-      const password = faker.internet.password();
-      const kdfSalt = Authenticator._generateSalt();
       const key = await Authenticator._scrypt(password, kdfSalt);
+      const authenticator = new Authenticator(API_URL);
       const { salt, verifier } = await authenticator._srpRegister(email, key);
       expect(salt).to.have.lengthOf(64);
       expect(salt).to.not.equal(kdfSalt);
@@ -93,15 +88,9 @@ describe('Authenticator', () => {
     });
   });
 
-  describe('#login', () => {
-
-  });
-
   describe('#register', () => {
     it('submits correct signup request', async () => {
       const secret = 'totpSecret';
-      const email = faker.internet.email();
-      const password = faker.internet.password();
       const authenticator = new Authenticator(API_URL);
       const requestStub = sinon.stub();
       authenticator._request = requestStub;

@@ -58,6 +58,11 @@ class Authenticator {
    * @return {Promise.<String>} - JSON Web Token
    */
   async login(email, passphrase, timeBasedOneTimeToken) {
+    /*
+     * Yo Dawg, I herd you like Promises,
+     * so I put a Promise in your Promise
+     * so you can await a Promise while you await a promise.
+     */
     const { encryptedPart, srpSalt, kdfSalt, serverPublicKey } =
       await (await this._request('/api/login-data', { email })).json();
     const key = await Authenticator._scrypt(passphrase, kdfSalt);
