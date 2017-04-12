@@ -22,7 +22,19 @@ async function register(email, key) {
 
 describe('Authenticator', () => {
   describe('#_srpCheckServer', () => {
-
+    it('checks the server proof', async () => {
+      const email = faker.internet.email();
+      const password = faker.internet.password();
+      const kdfSalt = Authenticator._generateSalt();
+      const key = await Authenticator._scrypt(password, kdfSalt);
+      const { authenticator, srpServer, salt } = await register(email, key);
+      const { clientPublicKey, clientProof } =
+        await authenticator._srpLogin(email, key, salt, srpServer.getPublicKey());
+      srpServer.setClientPublicKey(clientPublicKey);
+      srpServer.checkClientProof(clientProof);
+      const serverProof = srpServer.getProof();
+      expect(authenticator._srpCheckServer(serverProof)).to.be.true();
+    });
   });
 
   describe('#_srpLogin', () => {
