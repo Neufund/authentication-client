@@ -2,10 +2,12 @@
   "name": "authentication-client",
   "version": "1.0.0",
   "description": "Matching client for authentication-server",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint src",
-    "test": "mocha --compilers js:babel-register"
+    "lint": "eslint .",
+    "test": "mocha --compilers js:babel-register",
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
