@@ -4,7 +4,7 @@
   "description": "Matching client for authentication-server",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint src test",
     "test": "mocha --compilers js:babel-register",
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build"

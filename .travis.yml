@@ -5,6 +5,6 @@ language: node_js
 node_js:
   - "7"
 script:
-  - npm install
-  - npm run test
-  - npm run lint
+  - yarn
+  - yarn test
+  - yarn lint
