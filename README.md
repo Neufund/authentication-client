@@ -1,4 +1,6 @@
 # authentication-client [![Build Status](https://travis-ci.org/Neufund/authentication-client.svg)](https://travis-ci.org/Neufund/authentication-client)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Neufund/authentication-client.svg)](https://greenkeeper.io/)
 Client side library for the [authentication-server](https://github.com/Neufund/authentication-server)
 
 ## Example usage
