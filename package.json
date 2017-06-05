@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "chai": "^3.5.0",
+    "chai": "^4.0.2",
     "dirty-chai": "^1.2.2",
     "faker": "^4.1.0",
     "jsrp": "^0.2.3",
